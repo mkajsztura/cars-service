@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
 
 import { Car } from '../models/car';
 import { Client } from '../models/client';
-
+import { TotalCostComponent } from '../total-cost/total-cost.component';
 
 @Component({
   selector: 'cars-list',
   templateUrl: './cars-list.component.html',
-  styleUrls: ['./cars-list.component.less']
+  styleUrls: ['./cars-list.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
-export class CarsListComponent implements OnInit {
+export class CarsListComponent implements OnInit, AfterViewInit {
+  @ViewChild("totalCostRef") totalCostRef : TotalCostComponent; //refenercja do komponentu TotalCost poprzez ViewChild
+  totalCost: number;
+  grossCost: number;
   cars: Car[] = [
     {
       id: 1,
@@ -54,6 +58,23 @@ export class CarsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.countTotalCost();
   }
-
+  ngAfterViewInit() {
+    this.totalCostRef.showGross(); //użycie metody showGross z komponentu-dziecka total-costs OD RAZU
+  }
+  // showGross() : void{
+  //   this.totalCostRef.showGross(); //użycie metody showGross z komponentu-dziecka total-costs przez BUTTON
+  // }
+  countTotalCost() : void {
+    this.totalCost = this.cars
+    .map((car) => car.cost)
+    .reduce(function(result, current){
+      result+=current;
+      return result;
+    },0);
+  }
+  onShownGross(e : number) : void { // przypisuje do wartości pola grossCost wartość przesłaną z emittera
+    this.grossCost = e;
+  }
 }
