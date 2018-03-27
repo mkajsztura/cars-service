@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <table class="cs-table table table-stripped">
+      <table *ngIf="cars.length > 0; else noCarsInfo" class="cs-table table table-stripped">
         <thead>
           <tr>
             <th>Samochód</th>
@@ -15,7 +15,7 @@
         </thead>
         <tbody>
            <tr *ngFor="let car of cars">
-             <td>{{ car.model }}</td>
+             <td [ngClass]="{'row-error': car.isFullyDemaged}">{{ car.model }}</td>
              <td>{{ car.plate }}</td>
              <td>{{ car.deliveryDate }}</td>
              <td>{{ car.deadline }}</td>
@@ -25,6 +25,28 @@
            </tr>
         </tbody>
       </table>
+      <ng-template #noCarsInfo>
+        <div class="no-cars-info">
+          <p>Brak samochodów w serwisie</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- PRZEKAZANIE DO DEKORATORA INPUT WARTOŚCI POLA KLASY totalCost i ODEBRANIE Z DEKORATORA OUTPUT EVENTA WYSŁANEGO PRZEZ EVENTEMITTER -->
+  <!-- INPUT [nazwa-inputa]="pole-klasy" -->
+  <!-- OUTPUT (nazwa-emittera)="metoda jaką wykonuje()" -->
+  <div class="row">
+      <div class="col-sm-12">
+          <!-- <button (click)="showGross()" class="btn btn-primary float-right">Pokaż koszt brutto</button>       -->
+      </div>
+    </div>
+    <!-- po zadziałaniu emmitera shownGross uruchamia metodę onShownGross z przesłanym argumentem-$event -->
+  <cs-total-cost #totalCostRef [totalCost]="totalCost" (shownGross)="onShownGross($event)"></cs-total-cost>
+  <div class="row" *ngIf="grossCost">
+    <div class="col-sm-12">
+      <div class="total-cost">
+        <p class="text-right">KOSZT BRUTTO: {{ grossCost }} PLN</p>
+      </div>
     </div>
   </div>
 </div>
