@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <table *ngIf="cars.length > 0; else noCarsInfo" class="cs-table table table-stripped">
+      <table *ngIf="cars && cars.length > 0; else noCarsInfo" class="cs-table table table-stripped">
         <thead>
           <tr>
             <th>Samochód</th>
@@ -15,12 +15,12 @@
         </thead>
         <tbody>
            <tr *ngFor="let car of cars">
-             <td [ngClass]="{'row-error': car.isFullyDemaged}">{{ car.model }}</td>
-             <td>{{ car.plate }}</td>
-             <td>{{ car.deliveryDate }}</td>
-             <td>{{ car.deadline }}</td>
-             <td>{{ car.client.firstName }} {{ car.client.surname }} </td>
-             <td>{{ car.cost }}</td>
+             <td [ngClass]="{'row-error': car.isFullyDemaged}">{{ car?.model }}</td>
+             <td>{{ car?.plate }}</td>
+             <td>{{ car?.deliveryDate }}</td>
+             <td>{{ car?.deadline }}</td>
+             <td>{{ car?.clientFirstName }} {{ car?.clientSurname }} </td>
+             <td>{{ car?.cost }}</td>
              <td>akcja</td>
            </tr>
         </tbody>
@@ -37,7 +37,7 @@
   <!-- OUTPUT (nazwa-emittera)="metoda jaką wykonuje()" -->
   <div class="row">
       <div class="col-sm-12">
-          <!-- <button (click)="showGross()" class="btn btn-primary float-right">Pokaż koszt brutto</button>       -->
+          <button (click)="showGross()" class="btn btn-primary float-right">Pokaż koszt brutto</button>      
       </div>
     </div>
     <!-- po zadziałaniu emmitera shownGross uruchamia metodę onShownGross z przesłanym argumentem-$event -->
