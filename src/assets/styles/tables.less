@@ -1,7 +1,7 @@
-@import 'variables';
+@import 'variables.less';
 
 .cs-table {
-  background: white;
+  background: @white;
 
   th {
     font-weight: 700;
@@ -13,4 +13,7 @@
     color: @blue;
   }
 
+  .row-error {
+    border-left: 2px solid @red;
+  }
 }
