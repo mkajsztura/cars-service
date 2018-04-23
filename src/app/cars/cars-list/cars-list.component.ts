@@ -5,23 +5,24 @@ import { TotalCostComponent } from '../total-cost/total-cost.component';
 import { CarsService } from '../cars.service';
 
 @Component({
-  selector: 'cars-list',
+  // tslint:disable-next-line:component-selector
+  selector: ' cars-list ',
   templateUrl: './cars-list.component.html',
   styleUrls: ['./cars-list.component.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class CarsListComponent implements OnInit, AfterViewInit {
-  @ViewChild("totalCostRef") totalCostRef : TotalCostComponent; //refenercja do komponentu TotalCost poprzez ViewChild
+  @ViewChild(' totalCostRef ' ) totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
   totalCost: number;
   grossCost: number;
   cars: Car[];
-  
-  constructor( private carsService : CarsService) { }
+
+  constructor( private carsService: CarsService) { }
 
   ngOnInit() {
     this.loadCars();
   }
-  loadCars() : void {
+  loadCars(): void {
     this.carsService.getCars().subscribe((cars) => {
      this.cars = cars;
     this.countTotalCost();
@@ -30,18 +31,18 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // this.totalCostRef.showGross(); //użycie metody showGross z komponentu-dziecka total-costs OD RAZU
   }
-  showGross() : void{
-    this.totalCostRef.showGross(); //użycie metody showGross z komponentu-dziecka total-costs przez BUTTON
+  showGross(): void {
+    this.totalCostRef.showGross(); // użycie metody showGross z komponentu-dziecka total-costs przez BUTTON
   }
-  countTotalCost() : void {
+  countTotalCost(): void {
     this.totalCost = this.cars
     .map((car) => car.cost)
-    .reduce(function(result, current){
-      result+=current;
+    .reduce(function(result, current) {
+      result += current;
       return result;
-    },0);
+    }, 0);
   }
-  onShownGross(e : number) : void { // przypisuje do wartości pola grossCost wartość przesłaną z emittera
+  onShownGross(e: number): void { // przypisuje do wartości pola grossCost wartość przesłaną z emittera
     this.grossCost = e;
   }
 }

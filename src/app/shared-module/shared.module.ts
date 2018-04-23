@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
     CommonModule
   ],
   exports: [
-    HeaderComponent //ręczny export komponentów, po to żeby inne moduły importujace ten moduł widziały te komponenty
+    HeaderComponent // ręczny export komponentów, po to żeby inne moduły importujace ten moduł widziały te komponenty
   ],
   declarations: [HeaderComponent]
 })

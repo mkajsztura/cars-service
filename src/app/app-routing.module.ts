@@ -3,10 +3,10 @@ import { RouterModule, Route } from '@angular/router';
 
 import { CarsListComponent } from './cars/cars-list/cars-list.component';
 
-const APP_ROUTES : Route[] = [
+const APP_ROUTES: Route[] = [
     { path: 'cars', component: CarsListComponent},
-    { path: '', pathMatch: 'full', redirectTo: 'cars'}    
-]
+    { path: '', pathMatch: 'full', redirectTo: 'cars'}
+];
 
 @NgModule({
   imports: [
@@ -16,4 +16,4 @@ const APP_ROUTES : Route[] = [
     RouterModule
   ]
 })
-export class AppRoutingModule { }      
+export class AppRoutingModule { }

@@ -23,7 +23,8 @@
           </tr>
         </thead>
         <tbody>
-           <tr *ngFor="let car of cars">
+          <!-- przekazanie ścieżki i routingu do routerLink -->
+           <tr *ngFor="let car of cars" [routerLink]="['/cars', car.id]" class='row-car'> 
              <td [ngClass]="{'row-error': car.isFullyDemaged}">{{ car?.model }}</td>
              <td>{{ car?.plate }}</td>
              <td>{{ car?.deliveryDate }}</td>
