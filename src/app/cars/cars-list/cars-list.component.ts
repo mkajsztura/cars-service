@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '
 import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
 import { CarsService } from '../cars.service';
+import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,7 +18,8 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   grossCost: number;
   cars: Car[];
 
-  constructor( private carsService: CarsService) { }
+  constructor( private carsService: CarsService,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadCars();
@@ -27,6 +29,10 @@ export class CarsListComponent implements OnInit, AfterViewInit {
      this.cars = cars;
     this.countTotalCost();
     });
+  }
+  // routing z poziomu klasy komponentu, z użyciem serwisu Routing
+  goToDetails(car: Car) {
+    this.router.navigate(['/cars', car.id]);
   }
   ngAfterViewInit() {
     // this.totalCostRef.showGross(); //użycie metody showGross z komponentu-dziecka total-costs OD RAZU

@@ -24,7 +24,9 @@
         </thead>
         <tbody>
           <!-- przekazanie ścieżki i routingu do routerLink -->
-           <tr *ngFor="let car of cars" [routerLink]="['/cars', car.id]" class='row-car'> 
+           <!-- <tr *ngFor="let car of cars" [routerLink]="['/cars', car.id]" class='row-car'>  -->
+           <!-- routing z poziomu klasy komponentu, z użyciem serwisu Routing -->
+            <tr *ngFor="let car of cars" (click)="goToDetails(car)" class='row-car'>             
              <td [ngClass]="{'row-error': car.isFullyDemaged}">{{ car?.model }}</td>
              <td>{{ car?.plate }}</td>
              <td>{{ car?.deliveryDate }}</td>
