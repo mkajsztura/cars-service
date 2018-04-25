@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class CarsListComponent implements OnInit, AfterViewInit {
-  @ViewChild(' totalCostRef ' ) totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
+  @ViewChild('totalCostRef' ) totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
   totalCost: number;
   grossCost: number;
   cars: Car[];

@@ -1,7 +1,7 @@
 <cs-header>
   <!-- wykorzystanie gniazda levels(transkluzji - technika projekcji)  -->
   <p levels>Cars</p>
-  <!-- wykorzystanie gniazda content(transkluzji - technika projekcji)  -->  
+  <!-- wykorzystanie gniazda content(transkluzji - technika projekcji)  -->
   <div content>
     <p>Tekst content</p>
   </div>
@@ -18,23 +18,23 @@
             <th>Data dostarczenia</th>
             <th>Deadline</th>
             <th>Klient</th>
-            <th>Koszt naprawy</th>    
-            <th>Akcja</th>                                
+            <th>Koszt naprawy</th>
+            <th>Akcja</th>
           </tr>
         </thead>
         <tbody>
           <!-- przekazanie ścieżki i routingu do routerLink -->
-           <!-- <tr *ngFor="let car of cars" [routerLink]="['/cars', car.id]" class='row-car'>  -->
-           <!-- routing z poziomu klasy komponentu, z użyciem serwisu Routing -->
-            <tr *ngFor="let car of cars" (click)="goToDetails(car)" class='row-car'>             
-             <td [ngClass]="{'row-error': car.isFullyDemaged}">{{ car?.model }}</td>
-             <td>{{ car?.plate }}</td>
-             <td>{{ car?.deliveryDate }}</td>
-             <td>{{ car?.deadline }}</td>
-             <td>{{ car?.clientFirstName }} {{ car?.clientSurname }} </td>
-             <td>{{ car?.cost }}</td>
-             <td>akcja</td>
-           </tr>
+          <!-- <tr *ngFor="let car of cars" [routerLink]="['/cars', car.id]" class='row-car'>  -->
+          <!-- routing z poziomu klasy komponentu, z użyciem serwisu Routing -->
+          <tr *ngFor="let car of cars" (click)="goToDetails(car)" class='row-car'>
+            <td [ngClass]="{'row-error': car?.isFullyDamaged}">{{ car?.model }}</td>
+            <td>{{ car?.plate }}</td>
+            <td>{{ car?.deliveryDate }}</td>
+            <td>{{ car?.deadline }}</td>
+            <td>{{ car?.clientFirstName }} {{ car?.clientSurname }} </td>
+            <td>{{ car?.cost }}</td>
+            <td>akcja</td>
+          </tr>
         </tbody>
       </table>
       <ng-template #noCarsInfo>
@@ -48,17 +48,79 @@
   <!-- INPUT [nazwa-inputa]="pole-klasy" -->
   <!-- OUTPUT (nazwa-emittera)="metoda jaką wykonuje()" -->
   <div class="row">
-      <div class="col-sm-12">
-          <button (click)="showGross()" class="btn btn-primary float-right">Pokaż koszt brutto</button>      
-      </div>
+    <div class="col-sm-12">
+      <button (click)="showGross()" class="btn btn-primary float-right">Pokaż koszt brutto</button>
     </div>
-    <!-- po zadziałaniu emmitera shownGross uruchamia metodę onShownGross z przesłanym argumentem-$event -->
+  </div>
+  <!-- po zadziałaniu emmitera shownGross uruchamia metodę onShownGross z przesłanym argumentem-$event -->
   <cs-total-cost #totalCostRef [totalCost]="totalCost" (shownGross)="onShownGross($event)"></cs-total-cost>
   <div class="row" *ngIf="grossCost">
     <div class="col-sm-12">
       <div class="total-cost">
         <p class="text-right">KOSZT BRUTTO: {{ grossCost }} PLN</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<p class='data-header'>Dodaj samochód</p>
+<div class='data-container'>
+  <div class='row form-group'>
+    <div class='col-sm-6'>
+      <label>Imię Klienta</label>
+      <input type='text' class='form-control' placeholder="imię">
+    </div>
+    <div class='col-sm-6'>
+      <label>Nazwisko Klienta</label>
+      <input type='text' class='form-control' placeholder="nazwisko">
+    </div>
+  </div>
+  <div class='row form-group'>
+    <div class='col-sm-4'>
+      <label>Model</label>
+      <input type='text' class='form-control' placeholder="model">
+    </div>
+    <div class='col-sm-4'>
+      <label>Typ</label>
+      <input type='text' class='form-control' placeholder="typ">
+    </div>
+    <div class='col-sm-4'>
+      <label>Płyta</label>
+      <input type='text' class='form-control' placeholder="płyta">
+    </div>
+  </div>
+  <div class='row form-group'>
+    <div class='col-sm-4'>
+      <label>Moc</label>
+      <input type='text' class='form-control' placeholder="moc">
+    </div>
+    <div class='col-sm-4'>
+      <label>Kolor</label>
+      <input type='text' class='form-control' placeholder="kolor">
+    </div>
+    <div class='col-sm-4'>
+      <label>Uszkodzony?
+          <input type='checkbox'>
+      </label>
+    </div>
+  </div>
+  <div class='row form-group'>
+    <div class='col-sm-4'>
+      <label>Data dostarczenia</label>
+      <input type='text' class='form-control' placeholder="data dostarczenia">
+    </div>
+    <div class='col-sm-4'>
+      <label>Deadline</label>
+      <input type='text' class='form-control' placeholder="deadline">
+    </div>
+    <div class='col-sm-4'>
+        <label>Koszt</label>
+        <input type='text' class='form-control' placeholder="koszt">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-primary float-right">Zapisz</button>
     </div>
   </div>
 </div>
