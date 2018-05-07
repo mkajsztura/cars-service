@@ -4,7 +4,7 @@ import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
 import { CarsService } from '../cars.service';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,10 +14,11 @@ import { FormBuilder } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class CarsListComponent implements OnInit, AfterViewInit {
-  @ViewChild('totalCostRef' ) totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
+  @ViewChild(' totalCostRef ' ) totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
   totalCost: number;
   grossCost: number;
   cars: Car[];
+  carForm: FormGroup;
 
   constructor( private carsService: CarsService,
               private router: Router,
@@ -25,12 +26,22 @@ export class CarsListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loadCars();
+    this.carForm = this.buildCarForm();
   }
-
   buildCarForm() {
-    this.formBuilder.group({
-
-    });
+    return this.formBuilder.group({ 
+      model: ['', Validators.required],
+      type: '',
+      plate: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
+      deliveryDate: '',
+      deadline: '',
+      color: '',
+      power: '',
+      clientFirstName: '',
+      clientSurname: '',
+      cost: '',
+      isFullyDamaged: ''
+    })
   }
   loadCars(): void {
     this.carsService.getCars().subscribe((cars) => {
