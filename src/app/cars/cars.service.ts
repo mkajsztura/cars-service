@@ -15,7 +15,10 @@ export class CarsService {
     return this.http.get(this.apiUrl)
       .map((res) => res.json());
   }
-
+  addCar(data): Observable<Car> {
+    return this.http.post(this.apiUrl,data)
+    .map((res)=>res.json());
+  }
   getCar(id: number): Observable<Car> {
     return this.http.get(this.apiUrl + `/${id}`)
     .map((res) => res.json());

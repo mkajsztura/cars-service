@@ -94,17 +94,22 @@
       </div>
     </div>
     <div class='row form-group'>
-      <div class='col-sm-4'>
+      <div class='col-sm-3'>
         <label>Moc</label>
         <input formControlName='power' type='text' class='form-control' placeholder="moc">
       </div>
-      <div class='col-sm-4'>
+      <div class='col-sm-3'>
         <label>Kolor</label>
         <input formControlName='color' type='text' class='form-control' placeholder="kolor">
       </div>
-      <div class='col-sm-4'>
+      <div class='col-sm-3'>
         <label>Uszkodzony?
             <input formControlName='isFullyDamaged' type='checkbox'>
+        </label>
+      </div>
+      <div class='col-sm-3'>
+        <label>Rocznk
+            <input formControlName='year' type='text' class='form-control' placeholder="year">
         </label>
       </div>
     </div>
@@ -124,7 +129,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <button [disabled]='carForm.invalid' type="submit" class="btn btn-primary float-right">Zapisz</button>
+        <button [disabled]='carForm.invalid' (click)='addCar()' type="submit" class="btn btn-primary float-right">Zapisz</button>
       </div>
     </div>
   </form>

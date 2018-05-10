@@ -40,8 +40,14 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       clientFirstName: '',
       clientSurname: '',
       cost: '',
-      isFullyDamaged: ''
+      isFullyDamaged: '',
+      year: ''
     })
+  }
+  addCar(): void {
+    this.carsService.addCar(this.carForm.value).subscribe(()=> {
+      this.loadCars();
+    });
   }
   loadCars(): void {
     this.carsService.getCars().subscribe((cars) => {
