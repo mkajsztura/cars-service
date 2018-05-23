@@ -4,7 +4,7 @@ import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
 import { CarsService } from '../cars.service';
 import { Router } from '@angular/router';
-import { FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -29,10 +29,10 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.carForm = this.buildCarForm();
   }
   buildCarForm() {
-    return this.formBuilder.group({ 
+    return this.formBuilder.group( {
       model: ['', Validators.required],
       type: '',
-      plate: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(7)]],
+      plate: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
       deliveryDate: '',
       deadline: '',
       color: '',
@@ -42,10 +42,11 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       cost: '',
       isFullyDamaged: '',
       year: ''
-    })
+    });
   }
   addCar(): void {
-    this.carsService.addCar(this.carForm.value).subscribe(()=> {
+    this.carsService.addCar(this.carForm.value).subscribe(() => {
+      // funkcja wyykona się jeśli metoda została wywołana poprawnie
       this.loadCars();
     });
   }
