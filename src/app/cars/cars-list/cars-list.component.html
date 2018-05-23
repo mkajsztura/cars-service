@@ -27,12 +27,12 @@
           <!-- <tr *ngFor="let car of cars" [routerLink]="['/cars', car.id]" class='row-car'>  -->
           <!-- routing z poziomu klasy komponentu, z użyciem serwisu Routing -->
           <tr *ngFor="let car of cars" (click)="goToDetails(car)" class='row-car'>
-            <td [ngClass]="{'row-error': car?.isFullyDamaged}">{{ car?.model }}</td>
+            <td csImportantDirective [ngClass]="{'row-error': car?.isFullyDamaged}">{{ car?.model | uppercase }}</td>
             <td>{{ car?.plate }}</td>
-            <td>{{ car?.deliveryDate }}</td>
-            <td>{{ car?.deadline }}</td>
-            <td>{{ car?.clientFirstName }} {{ car?.clientSurname }} </td>
-            <td>{{ car?.cost }}</td>
+            <td>{{ car?.deliveryDate | date:'shortDate' }}</td>
+            <td>{{ car?.deadline | date:'shortDate' }}</td>
+            <td>{{ car?.clientFirstName }} {{ car?.clientSurname | userShortcut }} </td>
+            <td csImportantDirective>{{ car?.cost | currency:'PLN':true }}</td>
             <td>akcja</td>
           </tr>
         </tbody>
