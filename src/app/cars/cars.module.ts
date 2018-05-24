@@ -8,6 +8,7 @@ import { CarsRoutingModule } from './cars-routing.module';
 import { CarDetailsComponent } from './car-details/car-details.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CarResolve } from './car-resolve-service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [CarsListComponent],
+  providers: [
+    CarResolve
+  ],
   declarations:  [CarsListComponent, TotalCostComponent, CarDetailsComponent]
 })
 export class CarsModule { }
