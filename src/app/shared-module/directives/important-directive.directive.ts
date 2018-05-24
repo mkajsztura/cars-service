@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[csImportantDirective]'
+  selector: '[ csImportantDirective ]'
 })
 export class ImportantDirectiveDirective {
 
