@@ -13,8 +13,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./cars-list.component.less'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class CarsListComponent implements OnInit, AfterViewInit {
-  @ViewChild(' totalCostRef ' ) totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
+  @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
   totalCost: number;
   grossCost: number;
   cars: Car[];
@@ -52,7 +53,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   }
   loadCars(): void {
     this.carsService.getCars().subscribe((cars) => {
-     this.cars = cars;
+    this.cars = cars;
     this.countTotalCost();
     });
   }
@@ -61,7 +62,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/cars', car.id]);
   }
   ngAfterViewInit() {
-    // this.totalCostRef.showGross(); //użycie metody showGross z komponentu-dziecka total-costs OD RAZU
+    // this.totalCostRef.showGross(); // użycie metody showGross z komponentu-dziecka total-costs OD RAZU
   }
   showGross(): void {
     this.totalCostRef.showGross(); // użycie metody showGross z komponentu-dziecka total-costs przez BUTTON
