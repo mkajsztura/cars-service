@@ -52,9 +52,6 @@ export class CarDetailsComponent implements OnInit {
   loadCar() {
   this.car = this.route.snapshot.data['car'];
 
-
-
-
   //   const id = +this.route.snapshot.params['id'];
   //   console.log('Przed serwisem car' + this.car);
   //   console.log('Przed serwisem id' + id);
