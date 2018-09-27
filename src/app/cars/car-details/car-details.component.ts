@@ -50,9 +50,9 @@ export class CarDetailsComponent implements OnInit {
   }
 
   loadCar() {
-  this.car = this.route.snapshot.data['car'];
+  this.car = this.route.snapshot.data['car']; // to jest car dla resolvera, który dostarcza dane po wejściu na path'cars/:id'
 
-  //   const id = +this.route.snapshot.params['id'];
+  //   const id =  +this.route.snapshot.params['id'];
   //   console.log('Przed serwisem car' + this.car);
   //   console.log('Przed serwisem id' + id);
   //   const wynik = this.carsService.getCar(id).subscribe((car) => {

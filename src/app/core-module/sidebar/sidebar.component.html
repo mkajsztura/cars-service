@@ -2,11 +2,16 @@
   <img src='../../../assets/logo.png' class="logo">
   <nav>
     <ul>
-      <li [routerLink]="['/cars']"
-         [routerLinkActive]="['active']"
-         >cars</li>    <!--  -->
+      <!-- dyrektywy [routerLink] są dostępne w module Router (musi być zaimportowany) -->
+      <li
+        [routerLink]="['/cars']"
+        [routerLinkActive]="['active']"
+      >
+        cars
+      </li>
       <li>menu item 1</li>
       <li>menu item 1</li>
-      <li>menu item 1</li>      
+      <li>menu item 1</li>
     </ul>
   </nav>
+</div>

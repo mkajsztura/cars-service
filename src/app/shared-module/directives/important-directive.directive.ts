@@ -1,12 +1,13 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[ csImportantDirective ]'
+  // tslint:disable-next-line:directive-selector
+  selector: '[csImportantDirective]'
 })
 export class ImportantDirectiveDirective {
 
   constructor(private el: ElementRef) {
     el.nativeElement.style.fontWeight = 700;
-   }
+  }
 
 }
