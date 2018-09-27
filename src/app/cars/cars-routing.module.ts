@@ -5,15 +5,15 @@ import { CarResolve} from './car-resolve-service';
 
 const CARS_ROUTES: Route[] = [
   {
-  path: 'cars/:id',
+  path: 'cars/:id', // do routerLink trzeba przekazać ścieżkę i id
   component: CarDetailsComponent,
-  resolve: {car: CarResolve}
-} // do routerLink trzeba przekazać ścieżkę i id
+  resolve: {car: CarResolve} // odpala sie poprzez this.route.snapshot.data['car'];
+}
 ];
 
 @NgModule({
 imports: [
-  RouterModule.forChild(CARS_ROUTES)
+  RouterModule.forChild(CARS_ROUTES) // for child exportuje tylko ścieżki, nie zawiera usługi trasowania
 ],
 // jeżeli routing realizowany w głównym module app-module wtedy nie trzeba exportować tutaj Router Module
 exports: [

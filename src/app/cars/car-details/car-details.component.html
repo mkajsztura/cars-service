@@ -1,13 +1,12 @@
 <cs-header>
     <p levels>cars / {{ car.model }}</p>
-  
     <div content>
       <p>Car details</p>
     </div>
 </cs-header>
-  
+
   <p class="data-header">Edit {{ car.model }}</p>
-  
+
   <div class="data-container">
     <form [formGroup]="carForm">
       <div class="row form-group">
@@ -28,7 +27,7 @@
           </p>
         </div>
       </div>
-  
+
       <div class="row form-group">
         <div class="col-sm-4">
           <label>Delivery date</label>
@@ -44,7 +43,7 @@
           </label>
         </div>
       </div>
-  
+
       <div class="row form-group">
         <div class="col-sm-4">
           <label>Color</label>
@@ -59,7 +58,7 @@
           <input formControlName="cost" type="text" class="form-control" placeholder="cost">
         </div>
       </div>
-  
+
       <div class="row form-group">
         <div class="col-sm-4">
           <label>Client First Name</label>
@@ -74,14 +73,13 @@
           <input formControlName="year" type="text" class="form-control" placeholder="year">
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-sm-12">
-  
+
           <button [disabled]="carForm.invalid" (click)="updateCar()" class="btn btn-primary float-right">Update car</button>
           <button (click)="carForm.reset()" class="btn btn-default float-right">Reset</button>
         </div>
       </div>
     </form>
   </div>
-  

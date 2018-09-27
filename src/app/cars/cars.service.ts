@@ -34,5 +34,5 @@ export class CarsService {
   removeCar(id: number): Observable<Car> {
     return this.http.delete(this.apiUrl + `/${id}`)
       .map((res) => res.json());
-  }
+    }
 }
