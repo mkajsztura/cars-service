@@ -90,7 +90,6 @@
         <label>Płyta</label>
         <input formControlName='plate' type='text' class='form-control' placeholder="płyta">
         <p *ngIf='!carForm.get("plate").valid && carForm.get("plate").dirty' class='error'>To pole jest wymagane (3-6 znaków)</p>
-        
       </div>
     </div>
     <div class='row form-group'>
@@ -138,4 +137,4 @@
 <pre>Czy formularz jest niepoprawny ?{{ carForm.invalid | json }}</pre>
 <pre> Stan walidacji inputa model: {{ carForm.get('model').valid | json }}</pre>
 <pre> Stan walidacji inputa plate: {{ carForm.get('plate').valid | json }}</pre>
-</div>    
+</div>
