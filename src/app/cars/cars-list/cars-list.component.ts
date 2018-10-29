@@ -47,6 +47,20 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       year: ''
     });
   }
+
+  togglePlateValidity () { // walidacja warunkowa, jeżeli zaznaczone jest fullyDamaged, zdjęcie walidaci z pola plate
+    const damageControl = this.carForm.get('isFullyDamaged');
+    const plateControl = this.carForm.get('plate');
+
+    if (damageControl.value) {
+      plateControl.clearValidators();
+    } else {
+      plateControl.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(7)]);
+    }
+
+    plateControl.updateValueAndValidity();
+  }
+
   addCar(): void {
     this.carsService.addCar(this.carForm.value).subscribe(() => {
       // funkcja wyykona się jeśli metoda została wywołana poprawnie
