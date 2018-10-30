@@ -26,6 +26,6 @@ import { CostSharedService } from './cost-shared.service';
     CarResolve,
     CostSharedService
   ],
-  declarations:  [CarsListComponent, TotalCostComponent, CarDetailsComponent, , IncomeTaxComponent, CarsListRowComponent]
+  declarations:  [CarsListComponent, TotalCostComponent, CarDetailsComponent,IncomeTaxComponent, CarsListRowComponent]
 })
 export class CarsModule { }
