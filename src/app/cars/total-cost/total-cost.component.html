@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-sm-12">
       <div class="total-cost">
-          <p class="text-right">KOSZT NETTO: {{ totalCost }} PLN </p>
-          <cs-income-tax></cs-income-tax>
-        </div>
+        <span *ngIf="totalCost>10000">Więcej niż 10000 !</span>
+        <p class="text-right">KOSZT NETTO: {{ totalCost }} PLN </p>
+        <cs-income-tax></cs-income-tax>
+      </div>
     </div>
   </div>

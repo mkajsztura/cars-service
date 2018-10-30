@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { SharedCostService } from '../../shared-cost.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CostSharedService } from '../../cost-shared.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'cs-income-tax',
-  templateUrl: './income-tax.component.html'
+  templateUrl: './income-tax.component.html',
+  styleUrls: ['./income-tax.component.less']
 })
-export class IncomeTaxComponent implements OnInit {
+export class IncomeTaxComponent implements OnInit, OnDestroy {
+  incomeTax = 23;
+  incomeTaxCost: number;
+  costSubscription: Subscription;
 
-  private incomeTax: number;
-  private VAT = 0.23;
-
-  constructor(
-    private sharedCostService: SharedCostService
-  ) { }
+  constructor( private costShareService: CostSharedService ) { }
 
   ngOnInit() {
-    this.sharedCostService.totalCostSource$.subscribe((tax)=> {
-      this.incomeTax = tax * this.VAT;
-    })
+    this.costSubscription = this.costShareService.sharedCostSource$.subscribe((cost) => {
+      this.incomeTaxCost = cost * this.incomeTax / 100;
+    });
+  }
+
+  ngOnDestroy() {
+    this.costSubscription.unsubscribe();
   }
 
 }
