@@ -5,6 +5,7 @@ import { TotalCostComponent } from '../total-cost/total-cost.component';
 import { CarsService } from '../cars.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CostSharedService } from '../cost-shared.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -23,7 +24,8 @@ export class CarsListComponent implements OnInit, AfterViewInit {
 
   constructor( private carsService: CarsService,
               private router: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private costShareService: CostSharedService) { }
 
   ngOnInit() {
     this.loadCars();
@@ -55,6 +57,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.carsService.getCars().subscribe((cars) => {
     this.cars = cars;
     this.countTotalCost();
+    this.costShareService.updateCost(this.totalCost);
     });
   }
   // routing z poziomu klasy komponentu, z użyciem serwisu Routing
