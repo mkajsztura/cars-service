@@ -68,11 +68,11 @@
     <form [formGroup]='carForm'>
     <div class='row form-group'>
       <div class='col-sm-6'>
-        <label>Imię Klienta</label>
+        <label>Client name</label>
         <input formControlName='clientFirstName' type='text' class='form-control' placeholder="imię">
       </div>
       <div class='col-sm-6'>
-        <label>Nazwisko Klienta</label>
+        <label>Client surname</label>
         <input formControlName='clientSurname' type='text' class='form-control' placeholder="nazwisko">
       </div>
     </div>
@@ -83,46 +83,46 @@
         <p *ngIf='!carForm.get("model").valid && carForm.get("model").dirty' class='error'>To pole jest wymagane</p>
       </div>
       <div class='col-sm-4'>
-        <label>Typ</label>
+        <label>Type</label>
         <input formControlName='type' type='text' class='form-control' placeholder="typ">
       </div>
       <div class='col-sm-4'>
-        <label>Płyta</label>
+        <label>Plate</label>
         <input formControlName='plate' type='text' class='form-control' placeholder="płyta">
         <p *ngIf='!carForm.get("plate").valid && carForm.get("plate").dirty' class='error'>To pole jest wymagane (3-6 znaków)</p>
       </div>
     </div>
     <div class='row form-group'>
       <div class='col-sm-3'>
-        <label>Moc</label>
+        <label>Power</label>
         <input formControlName='power' type='text' class='form-control' placeholder="moc">
       </div>
       <div class='col-sm-3'>
-        <label>Kolor</label>
+        <label>Color</label>
         <input formControlName='color' type='text' class='form-control' placeholder="kolor">
       </div>
       <div class='col-sm-3'>
-        <label>Uszkodzony?
-            <input formControlName='isFullyDamaged' type='checkbox'>
+        <label>is Damaged?
+            <input formControlName='isFullyDamaged' type='checkbox' (change)="togglePlateValidity()">
         </label>
       </div>
       <div class='col-sm-3'>
-        <label>Rocznk
+        <label>Year
             <input formControlName='year' type='text' class='form-control' placeholder="year">
         </label>
       </div>
     </div>
     <div class='row form-group'>
       <div class='col-sm-4'>
-        <label>Data dostarczenia</label>
-        <input formControlName='deliveryDate' type='text' class='form-control' placeholder="data dostarczenia">
+        <label>Delivery date</label>
+        <input formControlName='deliveryDate' type='text' class='form-control' placeholder="Delivery date">
       </div>
       <div class='col-sm-4'>
         <label>Deadline</label>
         <input formControlName='deadline' type='text' class='form-control' placeholder="deadline">
       </div>
       <div class='col-sm-4'>
-          <label>Koszt</label>
+          <label>Cost</label>
           <input formControlName='cost' type='text' class='form-control' placeholder="koszt">
         </div>
     </div>
