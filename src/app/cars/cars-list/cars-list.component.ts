@@ -81,8 +81,8 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   onShownGross(e: number): void { // przypisuje do wartości pola grossCost wartość przesłaną z emittera
     this.grossCost = e;
   }
-  removeCar(car: Car, event): void {
-    event.stopPropagation();
+  onRemovedCar(car: Car): void {
+    console.log(car)
     this.carsService.removeCar(car.id).subscribe(() => {
       this.loadCars();
     });
