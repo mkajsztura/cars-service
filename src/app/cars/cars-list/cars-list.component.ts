@@ -45,7 +45,12 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       clientSurname: '',
       cost: '',
       isFullyDamaged: '',
-      year: ''
+      year: '',
+      parts: this.formBuilder.group({
+        name: '',
+        price: '',
+        isAvailable: ''
+      })
     });
   }
 

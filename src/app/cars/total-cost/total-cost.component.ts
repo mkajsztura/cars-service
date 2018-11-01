@@ -14,7 +14,7 @@ export class TotalCostComponent implements OnChanges{
   showGross(): void {
     this.shownGross.emit(this.totalCost * this.VAT);
   }
-
+// ngOnChanges to show previous and curreny values
   ngOnChanges(changes: SimpleChanges) {
     console.log('currentValue', changes['totalCost'].currentValue);
     console.log('previousValue', changes['totalCost'].previousValue);

@@ -13,13 +13,13 @@
       <table *ngIf="cars && cars.length > 0; else noCarsInfo" class="table table-striped cs-table">
         <thead>
           <tr>
-            <th>Samochód</th>
-            <th>Płyta</th>
-            <th>Data dostarczenia</th>
+            <th>Car</th>
+            <th>Plate</th>
+            <th>Delivery Date</th>
             <th>Deadline</th>
-            <th>Klient</th>
-            <th>Koszt naprawy</th>
-            <th>Akcja</th>
+            <th>Client</th>
+            <th>Cost</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
       </table>
       <ng-template #noCarsInfo>
         <div class="no-cars-info">
-          <p>Brak samochodów w serwisie</p>
+          <p>There are no cars in service</p>
         </div>
       </ng-template>
     </div>
@@ -49,7 +49,7 @@
   <!-- OUTPUT (nazwa-emittera)="metoda jaką wykonuje()" -->
   <div class="row">
     <div class="col-sm-12">
-      <button (click)="showGross()" class="btn btn-primary float-right">Pokaż koszt brutto</button>
+      <button (click)="showGross()" class="btn btn-primary float-right">Show gross cost</button>
     </div>
   </div>
   <!-- po zadziałaniu emmitera shownGross uruchamia metodę onShownGross z przesłanym argumentem-$event -->
@@ -57,50 +57,50 @@
   <div class="row" *ngIf="grossCost">
     <div class="col-sm-12">
       <div class="total-cost">
-        <p class="text-right">KOSZT BRUTTO: {{ grossCost }} PLN</p>
+        <p class="text-right">GROSS COST: {{ grossCost }} PLN</p>
       </div>
     </div>
   </div>
 </div>
 
-<p class='data-header'>Dodaj samochód</p>
+<p class='data-header'>Add car</p>
   <div class='data-container'>
     <form [formGroup]='carForm'>
     <div class='row form-group'>
       <div class='col-sm-6'>
         <label>Client name</label>
-        <input formControlName='clientFirstName' type='text' class='form-control' placeholder="imię">
+        <input formControlName='clientFirstName' type='text' class='form-control' placeholder="Client name">
       </div>
       <div class='col-sm-6'>
         <label>Client surname</label>
-        <input formControlName='clientSurname' type='text' class='form-control' placeholder="nazwisko">
+        <input formControlName='clientSurname' type='text' class='form-control' placeholder="Client surname">
       </div>
     </div>
     <div class='row form-group'>
       <div class='col-sm-4'>
         <label>Model</label>
-        <input formControlName='model' type='text' class='form-control' placeholder="model">
-        <p *ngIf='!carForm.get("model").valid && carForm.get("model").dirty' class='error'>To pole jest wymagane</p>
+        <input formControlName='model' type='text' class='form-control' placeholder="Model">
+        <p *ngIf='!carForm.get("model").valid && carForm.get("model").dirty' class='error'>This field is required</p>
       </div>
       <div class='col-sm-4'>
         <label>Type</label>
-        <input formControlName='type' type='text' class='form-control' placeholder="typ">
+        <input formControlName='type' type='text' class='form-control' placeholder="Type">
       </div>
       <div class='col-sm-4'>
         <label>Plate</label>
-        <input formControlName='plate' type='text' class='form-control' placeholder="płyta">
-        <p *ngIf='!carForm.get("plate").valid && carForm.get("plate").dirty' class='error'>To pole jest wymagane (3-6 znaków)</p>
+        <input formControlName='plate' type='text' class='form-control' placeholder="Plate">
+        <p *ngIf='!carForm.get("plate").valid && carForm.get("plate").dirty' class='error'>This field is required (3-6 signs)</p>
       </div>
     </div>
     <div class='row form-group'>
       <div class='col-sm-3'>
         <label>Power</label>
-        <input formControlName='power' type='text' class='form-control' placeholder="moc">
+        <input formControlName='power' type='text' class='form-control' placeholder="Power">
         <p *ngIf='carForm.get("power").errors?.power && carForm.get("power").dirty' class='error'>Power must be beetwen 40 - 800</p>
       </div>
       <div class='col-sm-3'>
         <label>Color</label>
-        <input formControlName='color' type='text' class='form-control' placeholder="kolor">
+        <input formControlName='color' type='text' class='form-control' placeholder="Color">
       </div>
       <div class='col-sm-3'>
         <label>is Damaged?
@@ -109,7 +109,7 @@
       </div>
       <div class='col-sm-3'>
         <label>Year
-            <input formControlName='year' type='text' class='form-control' placeholder="year">
+            <input formControlName='year' type='text' class='form-control' placeholder="Year">
         </label>
       </div>
     </div>
@@ -120,12 +120,29 @@
       </div>
       <div class='col-sm-4'>
         <label>Deadline</label>
-        <input formControlName='deadline' type='text' class='form-control' placeholder="deadline">
+        <input formControlName='deadline' type='text' class='form-control' placeholder="Deadline">
       </div>
       <div class='col-sm-4'>
-          <label>Cost</label>
-          <input formControlName='cost' type='text' class='form-control' placeholder="koszt">
-        </div>
+        <label>Cost</label>
+        <input formControlName='cost' type='text' class='form-control' placeholder="Cost">
+      </div>
+    </div>
+    <div 
+      formGroupName='parts'
+      class='row form-group parts'
+    >
+      <div class='col-sm-4'>
+        <label>Part name</label>
+        <input formControlName='name' type='text' class='form-control' placeholder="Part name">
+      </div>
+      <div class='col-sm-4'>
+        <label>Part price</label>
+        <input formControlName='price' type='text' class='form-control' placeholder="Part price">
+      </div>
+      <div class='col-sm-4'>
+        <label>Is part available</label>
+        <input formControlName='isAvailable' type='checkbox'>
+      </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
