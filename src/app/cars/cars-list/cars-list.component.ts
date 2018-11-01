@@ -6,6 +6,7 @@ import { CarsService } from '../cars.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CostSharedService } from '../cost-shared.service';
+import { CsValidators } from '../../shared-module/validators/cs-validators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -39,7 +40,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       deliveryDate: '',
       deadline: '',
       color: '',
-      power: '',
+      power: ['', CsValidators.power],
       clientFirstName: '',
       clientSurname: '',
       cost: '',
