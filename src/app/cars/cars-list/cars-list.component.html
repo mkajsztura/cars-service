@@ -103,13 +103,15 @@
         <input formControlName='color' type='text' class='form-control' placeholder="Color">
       </div>
       <div class='col-sm-3'>
-        <label>is Damaged?
-            <input formControlName='isFullyDamaged' type='checkbox' (change)="togglePlateValidity()">
+        <label>Year
+            <input formControlName='year' type='text' class='form-control' placeholder="Year">
         </label>
       </div>
       <div class='col-sm-3'>
-        <label>Year
-            <input formControlName='year' type='text' class='form-control' placeholder="Year">
+        <label>is Damaged?
+            <div>
+              <input formControlName='isFullyDamaged' type='checkbox' (change)="togglePlateValidity()">
+            </div>
         </label>
       </div>
     </div>
@@ -122,28 +124,37 @@
         <label>Deadline</label>
         <input formControlName='deadline' type='text' class='form-control' placeholder="Deadline">
       </div>
-      <div class='col-sm-4'>
-        <label>Cost</label>
-        <input formControlName='cost' type='text' class='form-control' placeholder="Cost">
+    </div>
+    <!-- formArray części-->
+    <div formArrayName='parts' *ngFor='let part of parts.controls; let i = index' >
+      <div class="parts" [formGroupName] = "i">
+        <!-- odowłanie do form group name po ineksie bo taka jest nazwa tej formgroupy w formarrayu-->
+        <div class="row">
+          <div class="col-12">
+            <h5>
+              {{ i +1 }}) {{ part.value.name }} {{ part.value.price | currency:'PLN':true}}
+              <span class="btn btn-danger float-right" (click)="removePart(i)">Remove</span>
+            </h5>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-4'>
+            <label>Part name</label>
+            <input formControlName='name' type='text' class='form-control' placeholder="Part name">
+          </div>
+          <div class='col-sm-4'>
+            <label>Part price</label>
+            <input formControlName='price' type='text' class='form-control' placeholder="Part price">
+          </div>
+          <div class='col-sm-4'>
+            <label>Is part available</label>
+            <input formControlName='isAvailable' type='checkbox'>
+          </div>
+        </div>
       </div>
     </div>
-    <div 
-      formGroupName='parts'
-      class='row form-group parts'
-    >
-      <div class='col-sm-4'>
-        <label>Part name</label>
-        <input formControlName='name' type='text' class='form-control' placeholder="Part name">
-      </div>
-      <div class='col-sm-4'>
-        <label>Part price</label>
-        <input formControlName='price' type='text' class='form-control' placeholder="Part price">
-      </div>
-      <div class='col-sm-4'>
-        <label>Is part available</label>
-        <input formControlName='isAvailable' type='checkbox'>
-      </div>
-    </div>
+    <button class="btn btn-primary" (click) = "addPart()">Add part</button>
+
     <div class="row">
       <div class="col-sm-12">
         <button [disabled]='carForm.invalid' (click)='addCar()' type="submit" class="btn btn-primary float-right">Zapisz</button>
@@ -151,7 +162,7 @@
     </div>
   </form>
 
-<!-- <pre>{{ carForm.value | json }}</pre> -->
+<pre>{{ carForm.value | json }}</pre>
 <pre>Czy formularz jest niepoprawny ?{{ carForm.invalid | json }}</pre>
 <pre> Stan walidacji inputa model: {{ carForm.get('model').valid | json }}</pre>
 <pre> Stan walidacji inputa plate: {{ carForm.get('plate').valid | json }}</pre>

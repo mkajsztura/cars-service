@@ -53,10 +53,6 @@
           <label>Power</label>
           <input formControlName="power" type="text" class="form-control" placeholder="power">
         </div>
-        <div class="col-sm-4">
-          <label>Cost</label>
-          <input formControlName="cost" type="text" class="form-control" placeholder="cost">
-        </div>
       </div>
 
       <div class="row form-group">
@@ -74,9 +70,38 @@
         </div>
       </div>
 
+    <!-- formArray części-->
+    <div formArrayName='parts' *ngFor='let part of parts.controls; let i = index' >
+        <div class="parts" [formGroupName] = "i">
+          <!-- odowłanie do form group name po ineksie bo taka jest nazwa tej formgroupy w formarrayu-->
+          <div class="row">
+            <div class="col-12">
+              <h5>
+                {{ i +1 }}) {{ part.value.name }} {{ part.value.price | currency:'PLN':true}}
+                <span class="btn btn-danger float-right" (click)="removePart(i)">Remove</span>
+              </h5>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-sm-4'>
+              <label>Part name</label>
+              <input formControlName='name' type='text' class='form-control' placeholder="Part name">
+            </div>
+            <div class='col-sm-4'>
+              <label>Part price</label>
+              <input formControlName='price' type='text' class='form-control' placeholder="Part price">
+            </div>
+            <div class='col-sm-4'>
+              <label>Is part available</label>
+              <input formControlName='isAvailable' type='checkbox'>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click) = "addPart()">Add part</button>
+
       <div class="row">
         <div class="col-sm-12">
-
           <button [disabled]="carForm.invalid" (click)="updateCar()" class="btn btn-primary float-right">Update car</button>
           <button (click)="carForm.reset()" class="btn btn-default float-right">Reset</button>
         </div>

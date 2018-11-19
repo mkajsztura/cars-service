@@ -4,7 +4,7 @@ import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
 import { CarsService } from '../cars.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CostSharedService } from '../cost-shared.service';
 import { CsValidators } from '../../shared-module/validators/cs-validators';
 
@@ -43,15 +43,36 @@ export class CarsListComponent implements OnInit, AfterViewInit {
       power: ['', CsValidators.power],
       clientFirstName: '',
       clientSurname: '',
-      cost: '',
       isFullyDamaged: '',
       year: '',
-      parts: this.formBuilder.group({
-        name: '',
-        price: '',
-        isAvailable: ''
-      })
+      parts: this.formBuilder.array([])
     });
+  }
+
+  buildParts() {
+    return this.formBuilder.group({
+      name: '',
+      price: '',
+      isAvailable: ''
+    })
+  }
+
+  get parts (): FormArray {
+    return <FormArray>this.carForm.get('parts');
+  }
+
+  addPart (): void {
+    this.parts.push(this.buildParts());
+  }
+  
+  removePart(index: number): void {
+    this.parts.removeAt(index);
+  }
+
+  countPartsCost(parts) {
+    return parts.reduce((result, current) => {
+      return parseFloat(result) + parseFloat(current.price)
+    }, 0);
   }
 
   togglePlateValidity () { // walidacja warunkowa, jeżeli zaznaczone jest fullyDamaged, zdjęcie walidaci z pola plate
@@ -68,7 +89,10 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   }
 
   addCar(): void {
-    this.carsService.addCar(this.carForm.value).subscribe(() => {
+    let carFormData = Object.assign({}, this.carForm.value);
+    carFormData.cost = this.countPartsCost(carFormData.parts)
+    console.log(carFormData)
+    this.carsService.addCar(carFormData).subscribe(() => {
       // funkcja wyykona się jeśli metoda została wywołana poprawnie
       this.loadCars();
     });

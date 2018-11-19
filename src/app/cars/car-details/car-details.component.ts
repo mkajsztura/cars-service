@@ -26,6 +26,11 @@ export class CarDetailsComponent implements OnInit {
   }
 
   buildCarForm() {
+    let parts = this.car.parts.map((part) => {
+      return this.formBuilder.group(part);
+    })
+
+    console.log(parts, 'parts')
     return this.formBuilder.group( {
       model: [this.car.model, Validators.required],
       type: this.car.type,
@@ -36,9 +41,9 @@ export class CarDetailsComponent implements OnInit {
       power: this.car.power,
       clientFirstName: this.car.clientFirstName,
       clientSurname: this.car.clientSurname,
-      cost: this.car.cost,
       isFullyDamaged: this.car.isFullyDamaged,
-      year: this.car.year
+      year: this.car.year,
+      parts: this.formBuilder.array(parts)
     });
   }
 
