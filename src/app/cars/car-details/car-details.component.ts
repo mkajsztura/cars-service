@@ -56,7 +56,27 @@ export class CarDetailsComponent implements OnInit {
 
   loadCar() {
   this.car = this.route.snapshot.data['car']; // to jest car dla resolvera, który dostarcza dane po wejściu na path'cars/:id'
+  }
 
+  buildParts() {
+    return this.formBuilder.group({
+      name: '',
+      price: '',
+      isStock: ''
+    })
+  }
+
+  get parts (): FormArray {
+    return <FormArray>this.carForm.get('parts');
+  }
+
+  addPart (): void {
+    this.parts.push(this.buildParts());
+  }
+  
+  removePart(index: number): void {
+    this.parts.removeAt(index);
+  }
   //   const id =  +this.route.snapshot.params['id'];
   //   console.log('Przed serwisem car' + this.car);
   //   console.log('Przed serwisem id' + id);
@@ -70,4 +90,5 @@ export class CarDetailsComponent implements OnInit {
   //   console.log("koniec", this.car);
   // }
 }
-}
+
+

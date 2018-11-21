@@ -93,7 +93,7 @@
             </div>
             <div class='col-sm-4'>
               <label>Is part available</label>
-              <input formControlName='isAvailable' type='checkbox'>
+              <input formControlName='inStock' type='checkbox'>
             </div>
           </div>
         </div>
@@ -108,3 +108,5 @@
       </div>
     </form>
   </div>
+<pre>{{ carForm.valid | json }}</pre>
+<pre>{{ carForm.value | json }}</pre>
