@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarsService } from '../cars.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from '../models/car';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray,Validators } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
