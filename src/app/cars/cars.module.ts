@@ -18,7 +18,6 @@ import { CostSharedService } from './cost-shared.service';
     CommonModule,
     SharedModule,
     CarsRoutingModule,
-    RouterModule,
     ReactiveFormsModule
   ],
   exports: [CarsListComponent],

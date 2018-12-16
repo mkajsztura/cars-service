@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { CarsModule } from './cars/cars.module';
+import { LoginModule } from './login/login.module';
 import { CoreModule } from './core-module/core.module';
 import { CarsService } from './cars/cars.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,7 @@ import { AppComponent } from './app.component';
     HttpModule,
     CoreModule,
     AppRoutingModule,
+    LoginModule,
   ],
   providers: [CarsService],
   bootstrap: [AppComponent]
