@@ -1,11 +1,12 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Route } from "@angular/router";
-import { LoginComponent } from "./login.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Route } from '@angular/router';
+import { LoginComponent } from './login.component';
+
 
 const LOGIN_ROUTES: Route[] = [
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
     }
 ]
 
