@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 
 import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
@@ -20,6 +20,7 @@ import { CanDeactivateComponent } from '../../guards/form-can-deactivate.guard';
 export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateComponent {
   @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild // dotyczy konkretnego komponentu
   // @ViewChildren dotyczy list komponentów
+  @ViewChild('carFormTitle') carFormTitle: ElementRef; // refeerncja do zmiennej lokalnej #carFormTitle
   totalCost: number;
   grossCost: number;
   cars: Car[];
@@ -34,6 +35,7 @@ export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateCo
     this.loadCars();
     this.carForm = this.buildCarForm();
   }
+
   buildCarForm() {
     return this.formBuilder.group( {
       model: ['', Validators.required],
@@ -110,6 +112,15 @@ export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateCo
     this.router.navigate(['/cars', car.id]);
   }
   ngAfterViewInit() {
+    const carFormTitleRef = this.carFormTitle.nativeElement;
+    console.log(carFormTitleRef)
+    this.carForm.valueChanges.subscribe(() => {
+      if (this.carForm.invalid) {
+        carFormTitleRef.style.border = '1px red solid';
+      } else {
+        carFormTitleRef.style.border = 'none';
+      }
+    })
     // this.totalCostRef.showGross(); // użycie metody showGross z komponentu-dziecka total-costs OD RAZU
   }
   showGross(): void {
