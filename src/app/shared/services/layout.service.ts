@@ -7,11 +7,11 @@ export class LayoutService {
 
   layoutVisibleSource$ = new Subject<boolean>();
 
-  showLayout() {
+  showSidebar() {
     this.layoutVisibleSource$.next(true);
   }
 
-  hideLayout() {
+  hideSidebar() {
     this.layoutVisibleSource$.next(false);
   }
 

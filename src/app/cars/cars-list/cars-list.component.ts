@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CostSharedService } from '../cost-shared.service';
 import { CsValidators } from '../../shared-module/validators/cs-validators';
+import { CanDeactivateComponent } from '../../guards/form-can-deactivate.guard';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,7 +17,7 @@ import { CsValidators } from '../../shared-module/validators/cs-validators';
   encapsulation: ViewEncapsulation.None
 })
 
-export class CarsListComponent implements OnInit, AfterViewInit {
+export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateComponent {
   @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
   totalCost: number;
   grossCost: number;
@@ -64,14 +65,14 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   addPart (): void {
     this.parts.push(this.buildParts());
   }
-  
+
   removePart(index: number): void {
     this.parts.removeAt(index);
   }
 
   countPartsCost(parts) {
     return parts.reduce((result, current) => {
-      return parseFloat(result) + parseFloat(current.price)
+      return parseFloat(result) + parseFloat(current.price);
     }, 0);
   }
 
@@ -91,7 +92,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   addCar(): void {
     let carFormData = Object.assign({}, this.carForm.value);
     carFormData.cost = this.countPartsCost(carFormData.parts)
-    console.log(carFormData)
     this.carsService.addCar(carFormData).subscribe(() => {
       // funkcja wyykona się jeśli metoda została wywołana poprawnie
       this.loadCars();
@@ -126,9 +126,16 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.grossCost = e;
   }
   onRemovedCar(car: Car): void {
-    console.log(car)
     this.carsService.removeCar(car.id).subscribe(() => {
       this.loadCars();
     });
+  }
+
+  canDeactivate() {
+    if (!this.carForm.dirty) {
+      return true;
+    }
+
+    return window.confirm('Discard changes?');
   }
 }

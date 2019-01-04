@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { LayoutService } from '../shared/services/layout.service';
 
 @Component({
   selector: 'cs-login',
@@ -13,7 +14,8 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private layoutService: LayoutService
   ) { }
 
   onSubmit() {
@@ -22,7 +24,10 @@ export class LoginComponent {
   }
 
   private onSubmitSuccess () {
-    this.router.navigate(['/cars']);
+    this.router.navigate(['/cars'])
+    .then(
+      () => this.layoutService.showSidebar()
+    );
   }
 
   private onSubmitFailure () {

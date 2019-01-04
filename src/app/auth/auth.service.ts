@@ -19,7 +19,6 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       if (login === this.credentials.login && password === this.credentials.password) {
         this.isUserLoggedIn = true;
-        this.layoutService.showLayout();
         resolve();
       } else {
         reject();
@@ -29,7 +28,7 @@ export class AuthService {
 
   logout() {
     this.isUserLoggedIn = false;
-    this.layoutService.hideLayout();
+    this.layoutService.hideSidebar();
   }
 
   isLoggedIn() {
