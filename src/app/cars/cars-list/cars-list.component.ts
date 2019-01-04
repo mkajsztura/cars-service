@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, ViewChildren } from '@angular/core';
 
 import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
@@ -18,7 +18,8 @@ import { CanDeactivateComponent } from '../../guards/form-can-deactivate.guard';
 })
 
 export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateComponent {
-  @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
+  @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild // dotyczy konkretnego komponentu
+  // @ViewChildren dotyczy list komponentów
   totalCost: number;
   grossCost: number;
   cars: Car[];
