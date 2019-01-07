@@ -22,7 +22,7 @@ const APP_ROUTES: Route[] = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(APP_ROUTES, {enableTracing: true}) // foRoot exportuje cały router module, zawiera usługi trasowania - wykonuje piersza nawigacje zalezna
+    RouterModule.forRoot(APP_ROUTES) // foRoot exportuje cały router module, zawiera usługi trasowania - wykonuje piersza nawigacje zalezna
     //  Wywołujemy metodę forRoot() ponieważ mechanizm trasowania jest dostarczony do korzenia aplikacji (do głównego modułu).
   ],
   exports: [
