@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, ViewChildren, ElementRef, Renderer2 } from '@angular/core';
 
 import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
@@ -28,6 +28,7 @@ export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateCo
 
   constructor( private carsService: CarsService,
               private router: Router,
+              private renderer: Renderer2,
               private formBuilder: FormBuilder,
               private costShareService: CostSharedService) { }
 
@@ -116,9 +117,9 @@ export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateCo
     console.log(carFormTitleRef)
     this.carForm.valueChanges.subscribe(() => {
       if (this.carForm.invalid) {
-        carFormTitleRef.style.border = '1px red solid';
+        this.renderer.setStyle(carFormTitleRef, 'border', '1px red solid'); // odwołanie się do elementu za pomocą klasy Renderer2
       } else {
-        carFormTitleRef.style.border = 'none';
+        carFormTitleRef.style.border = 'none'; // klasyczne odwołanie się do propercji elementu
       }
     })
     // this.totalCostRef.showGross(); // użycie metody showGross z komponentu-dziecka total-costs OD RAZU
