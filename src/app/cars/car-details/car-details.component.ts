@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { CarsService } from '../cars.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from '../models/car';
 import { FormBuilder, FormGroup, FormArray,Validators } from '@angular/forms';
+import { DateInfoComponent } from './date-info/date-info.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,13 +12,19 @@ import { FormBuilder, FormGroup, FormArray,Validators } from '@angular/forms';
   styleUrls: ['./car-details.component.less']
 })
 export class CarDetailsComponent implements OnInit {
+  // ViewChild domyślnie zwraca element typu ElementRef,
+  // obiekt read zmienia typ odczytu ViewChild
+  @ViewChild('dateInfoContainer', {read: ViewContainerRef}) dateInfoContainer: ViewContainerRef; // kontener na komponent dynamiczny
   car: Car;
   carForm: FormGroup;
+  elapsedDays: number;
+  dateInfoComponentRef: ComponentRef<DateInfoComponent>;
 
   constructor(private carsService: CarsService,
               private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
+              private cfr: ComponentFactoryResolver // "magazyn dynamicznych komponentów", może wystawić dynamiczny komponent
               ) { }
 
   ngOnInit() {
@@ -73,22 +80,30 @@ export class CarDetailsComponent implements OnInit {
   addPart (): void {
     this.parts.push(this.buildParts());
   }
-  
+
   removePart(index: number): void {
     this.parts.removeAt(index);
   }
-  //   const id =  +this.route.snapshot.params['id'];
-  //   console.log('Przed serwisem car' + this.car);
-  //   console.log('Przed serwisem id' + id);
-  //   const wynik = this.carsService.getCar(id).subscribe((car) => {
-  //     console.log(1,car);
-  //     this.car = car;
-  //     console.log(2,this.car);
-  //     this.carForm = this.buildCarForm();
 
-  //   });
-  //   console.log("koniec", this.car);
-  // }
+  createDateInfoComponent () { // tworzenie dynamicznego komoponentu
+    if (this.dateInfoContainer.get(0) !== null) {
+      return; // blokada jezeli istnieje już instancja komponentu w kontenerze DateInfoContainer
+    }
+
+
+    const dateInfoFactory = this.cfr.resolveComponentFactory(DateInfoComponent); // komponent wystawiony przez fabrykę
+
+    this.dateInfoComponentRef = this.dateInfoContainer
+      .createComponent(dateInfoFactory); // przekazanie komponentu dynamicznego do dateInfoContainera
+
+    // tslint:disable-next-line:max-line-length
+    this.dateInfoComponentRef.instance.car = this.car; // przekazanie this.car do instacji komponentu dynamicznego (nie jest to klasyk input)
+    this.dateInfoComponentRef.instance.elapsedDays.subscribe((elapsedDays) => { // odbiór danych od komponentu dynamicznego
+      this.elapsedDays = Math.floor(elapsedDays);
+    });
+  }
+
+  destroyComponent() { // usuwanie dynamicznego komponentu,
+    this.dateInfoComponentRef.destroy();
+  }
 }
-
-

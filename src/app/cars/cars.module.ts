@@ -13,6 +13,7 @@ import { CarsListRowComponent } from './cars-list-row/cars-list-row.component';
 import { IncomeTaxComponent } from './total-cost/income-tax/income-tax.component';
 import { CostSharedService } from './cost-shared.service';
 import { CarsComponent } from './cars.component';
+import { DateInfoComponent } from './car-details/date-info/date-info.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,17 @@ import { CarsComponent } from './cars.component';
     CarResolve,
     CostSharedService
   ],
-  declarations:  [CarsListComponent, TotalCostComponent, CarDetailsComponent,IncomeTaxComponent, CarsListRowComponent, CarsComponent]
+  entryComponents: [ // komponenty ładowane dynamicznie 
+    DateInfoComponent
+  ],
+  declarations:  [
+    CarsListComponent,
+    TotalCostComponent,
+    CarDetailsComponent,
+    IncomeTaxComponent,
+    CarsListRowComponent,
+    CarsComponent,
+    DateInfoComponent
+  ]
 })
 export class CarsModule { }
