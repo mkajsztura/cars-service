@@ -13,7 +13,7 @@ import { DateInfoComponent } from './date-info/date-info.component';
 })
 export class CarDetailsComponent implements OnInit {
   // ViewChild domyślnie zwraca element typu ElementRef,
-  // obiekt read zmienia typ odczytu ViewChild
+  // obiekt read zmienia typ odczytu ViewChild na ViewContainerRef (kontener na komponenty dynamiczne)
   @ViewChild('dateInfoContainer', {read: ViewContainerRef}) dateInfoContainer: ViewContainerRef; // kontener na komponent dynamiczny
   car: Car;
   carForm: FormGroup;
@@ -37,7 +37,6 @@ export class CarDetailsComponent implements OnInit {
       return this.formBuilder.group(part);
     })
 
-    console.log(parts, 'parts')
     return this.formBuilder.group( {
       model: [this.car.model, Validators.required],
       type: this.car.type,
@@ -90,7 +89,6 @@ export class CarDetailsComponent implements OnInit {
       return; // blokada jezeli istnieje już instancja komponentu w kontenerze DateInfoContainer
     }
 
-
     const dateInfoFactory = this.cfr.resolveComponentFactory(DateInfoComponent); // komponent wystawiony przez fabrykę
 
     this.dateInfoComponentRef = this.dateInfoContainer
@@ -99,7 +97,7 @@ export class CarDetailsComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.dateInfoComponentRef.instance.car = this.car; // przekazanie this.car do instacji komponentu dynamicznego (nie jest to klasyk input)
     this.dateInfoComponentRef.instance.elapsedDays.subscribe((elapsedDays) => { // odbiór danych od komponentu dynamicznego
-      this.elapsedDays = Math.floor(elapsedDays);
+      this.elapsedDays = Math.round(elapsedDays);
     });
   }
 
