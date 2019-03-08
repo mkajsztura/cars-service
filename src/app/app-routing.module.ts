@@ -1,11 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
-
-import { CarsListComponent } from './cars/cars-list/cars-list.component';
+import { CanLoadGuard } from './guards/can-load.guard';
+import { PageNotFoundComponent } from './shared-module/page-not-found/page-not-found.component';
 
 const APP_ROUTES: Route[] = [
-  { path: '', pathMatch: 'full', redirectTo: 'cars'},
-  { path: 'cars', component: CarsListComponent}
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
+  },
+  {
+    path: 'cars',
+    canLoad: [CanLoadGuard],
+    loadChildren: 'app/cars/cars.module#CarsModule'
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({

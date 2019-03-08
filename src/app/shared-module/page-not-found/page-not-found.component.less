@@ -1,0 +1,20 @@
+@import '../../../assets/styles/variables.less';
+:host {
+    color: @white;
+}
+.mixin-loop (@index) when (@index > 0) {
+    .mt-@{index} {
+      margin-top: (@index)*1px !important;
+    }
+    .mixin-loop(@index - 1);
+  }
+
+.mixin-loop (0) {}
+
+.mixin-loop(100);
+
+.btn {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}

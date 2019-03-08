@@ -4,4 +4,4 @@
 <td>{{ car?.deadline | date:'shortDate' }}</td>
 <td>{{ car?.clientFirstName }} {{ car?.clientSurname | userShortcut }} </td>
 <td csImportantDirective>{{ car?.cost | currency:'PLN':true }}</td>
-<td (click)="removeCar(car, $event)"> (X) </td>
+<td class="remove-btn" (click)="removeCar(car, $event)"> (X) </td>

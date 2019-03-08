@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, ViewChildren, ElementRef, Renderer2 } from '@angular/core';
 
 import { Car } from '../models/car';
 import { TotalCostComponent } from '../total-cost/total-cost.component';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CostSharedService } from '../cost-shared.service';
 import { CsValidators } from '../../shared-module/validators/cs-validators';
+import { CanDeactivateComponent } from '../../guards/form-can-deactivate.guard';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,8 +17,10 @@ import { CsValidators } from '../../shared-module/validators/cs-validators';
   encapsulation: ViewEncapsulation.None
 })
 
-export class CarsListComponent implements OnInit, AfterViewInit {
-  @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild
+export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateComponent {
+  @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild // dotyczy konkretnego komponentu
+  // @ViewChildren dotyczy list komponentów
+  @ViewChild('carFormTitle') carFormTitle: ElementRef; // refeerncja do zmiennej lokalnej #carFormTitle
   totalCost: number;
   grossCost: number;
   cars: Car[];
@@ -25,6 +28,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
 
   constructor( private carsService: CarsService,
               private router: Router,
+              private renderer: Renderer2,
               private formBuilder: FormBuilder,
               private costShareService: CostSharedService) { }
 
@@ -32,6 +36,7 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.loadCars();
     this.carForm = this.buildCarForm();
   }
+
   buildCarForm() {
     return this.formBuilder.group( {
       model: ['', Validators.required],
@@ -64,14 +69,14 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   addPart (): void {
     this.parts.push(this.buildParts());
   }
-  
+
   removePart(index: number): void {
     this.parts.removeAt(index);
   }
 
   countPartsCost(parts) {
     return parts.reduce((result, current) => {
-      return parseFloat(result) + parseFloat(current.price)
+      return parseFloat(result) + parseFloat(current.price);
     }, 0);
   }
 
@@ -91,7 +96,6 @@ export class CarsListComponent implements OnInit, AfterViewInit {
   addCar(): void {
     let carFormData = Object.assign({}, this.carForm.value);
     carFormData.cost = this.countPartsCost(carFormData.parts)
-    console.log(carFormData)
     this.carsService.addCar(carFormData).subscribe(() => {
       // funkcja wyykona się jeśli metoda została wywołana poprawnie
       this.loadCars();
@@ -109,6 +113,15 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/cars', car.id]);
   }
   ngAfterViewInit() {
+    const carFormTitleRef = this.carFormTitle.nativeElement;
+    console.log(carFormTitleRef)
+    this.carForm.valueChanges.subscribe(() => {
+      if (this.carForm.invalid) {
+        this.renderer.setStyle(carFormTitleRef, 'border', '1px red solid'); // odwołanie się do elementu za pomocą klasy Renderer2
+      } else {
+        carFormTitleRef.style.border = 'none'; // klasyczne odwołanie się do propercji elementu
+      }
+    })
     // this.totalCostRef.showGross(); // użycie metody showGross z komponentu-dziecka total-costs OD RAZU
   }
   showGross(): void {
@@ -126,9 +139,16 @@ export class CarsListComponent implements OnInit, AfterViewInit {
     this.grossCost = e;
   }
   onRemovedCar(car: Car): void {
-    console.log(car)
     this.carsService.removeCar(car.id).subscribe(() => {
       this.loadCars();
     });
+  }
+
+  canDeactivate() {
+    if (!this.carForm.dirty) {
+      return true;
+    }
+
+    return window.confirm('Discard changes?');
   }
 }

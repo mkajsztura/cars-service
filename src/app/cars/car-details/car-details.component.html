@@ -2,8 +2,22 @@
     <p levels>cars / {{ car.model }}</p>
     <div content>
       <p>Car details</p>
+      <span *ngIf="elapsedDays">
+        {{ elapsedDays }} days in Service
+      </span>
     </div>
 </cs-header>
+
+<!-- date info container -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <button class="btn" (click)="createDateInfoComponent()">Show date info</button>
+        <button class="btn btn-primary" (click)="destroyComponent()">Hide date info</button>
+      </div>
+    </div>
+  </div>
+  <ng-template #dateInfoContainer></ng-template>
 
   <p class="data-header">Edit {{ car.model }}</p>
 
@@ -108,5 +122,5 @@
       </div>
     </form>
   </div>
-<pre>{{ carForm.valid | json }}</pre>
+carform is valid ? <pre>{{ carForm.valid | json }}</pre>
 <pre>{{ carForm.value | json }}</pre>
