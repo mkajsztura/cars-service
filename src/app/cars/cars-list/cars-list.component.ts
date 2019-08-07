@@ -18,6 +18,7 @@ import { CanDeactivateComponent } from '../../guards/form-can-deactivate.guard';
 })
 
 export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateComponent {
+  // tslint:disable-next-line:max-line-length
   @ViewChild('totalCostRef') totalCostRef: TotalCostComponent; // refenercja do komponentu TotalCost poprzez ViewChild // dotyczy konkretnego komponentu
   // @ViewChildren dotyczy list komponentów
   @ViewChild('carFormTitle') carFormTitle: ElementRef; // refeerncja do zmiennej lokalnej #carFormTitle
@@ -59,7 +60,7 @@ export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateCo
       name: '',
       price: '',
       isAvailable: ''
-    })
+    });
   }
 
   get parts (): FormArray {
@@ -94,8 +95,8 @@ export class CarsListComponent implements OnInit, AfterViewInit, CanDeactivateCo
   }
 
   addCar(): void {
-    let carFormData = Object.assign({}, this.carForm.value);
-    carFormData.cost = this.countPartsCost(carFormData.parts)
+    const carFormData = Object.assign({}, this.carForm.value);
+    carFormData.cost = this.countPartsCost(carFormData.parts);
     this.carsService.addCar(carFormData).subscribe(() => {
       // funkcja wyykona się jeśli metoda została wywołana poprawnie
       this.loadCars();

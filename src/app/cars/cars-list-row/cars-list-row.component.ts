@@ -34,7 +34,7 @@ export class CarsListRowComponent implements OnInit{
   }
 
   ngOnInit() {
-  new Date(this.car.deadline) < new Date() ? this.deadline = true : this.deadline = false;
+    new Date(this.car.deadline) < new Date() ? this.deadline = true : this.deadline = false;
   }
 
 }

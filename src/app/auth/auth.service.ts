@@ -11,7 +11,7 @@ export class AuthService {
   private credentials = {
     login: 'admin',
     password: 'admin'
-  }
+  };
 
   private isUserLoggedIn = false;
 

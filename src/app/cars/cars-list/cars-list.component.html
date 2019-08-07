@@ -128,6 +128,7 @@
     </div>
     <!-- formArray części-->
     <div formArrayName='parts' *ngFor='let part of parts.controls; let i = index' >
+      <!-- *ngFor - od razu jest w form grupie -->
       <div class="parts" [formGroupName] = "i">
         <!-- odowłanie do form group name po ineksie bo taka jest nazwa tej formgroupy w formarrayu-->
         <div class="row">
@@ -154,6 +155,7 @@
         </div>
       </div>
     </div>
+    <!-- SUBMIT -->
     <button class="btn btn-primary" (click) = "addPart()">Add part</button>
 
     <div class="row">
