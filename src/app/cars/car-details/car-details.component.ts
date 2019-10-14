@@ -18,7 +18,7 @@ export class CarDetailsComponent implements OnInit {
   car: Car;
   carForm: FormGroup;
   elapsedDays: number;
-  dateInfoComponentRef: ComponentRef<DateInfoComponent>;
+  dateInfoComponentRef: ComponentRef<DateInfoComponent>; // referencja do komponentu, który zostanie utworzony dynamicznie
 
   constructor(private carsService: CarsService,
               private formBuilder: FormBuilder,
@@ -92,7 +92,7 @@ export class CarDetailsComponent implements OnInit {
     const dateInfoFactory = this.cfr.resolveComponentFactory(DateInfoComponent); // komponent wystawiony przez fabrykę
 
     this.dateInfoComponentRef = this.dateInfoContainer
-      .createComponent(dateInfoFactory); // przekazanie komponentu dynamicznego do dateInfoContainera
+      .createComponent(dateInfoFactory); // przekazanie komponentu dynamicznego do dateInfoContainera i przypisanie refenercji do komponentu dynamicznego
 
     // tslint:disable-next-line:max-line-length
     this.dateInfoComponentRef.instance.car = this.car; // przekazanie this.car do instacji komponentu dynamicznego (nie jest to klasyk input)
